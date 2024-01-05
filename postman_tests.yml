@@ -1,0 +1,27 @@
+
+name: CICD
+
+on:
+
+  push:
+
+jobs:
+
+  postman-test:
+
+    runs-on: ubuntu-latest
+    steps:
+  
+      - name: Repo Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+            node-version: '16'
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run test on newman
+        run: newman run Postman_files/Books.postman_collection.json -e Postman_files/test.postman_environment.json
